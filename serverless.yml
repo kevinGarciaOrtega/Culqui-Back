@@ -1,0 +1,28 @@
+service: nombre-del-servicio
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1 # Cambia esto a tu región preferida
+  memorySize: 256
+  timeout: 10
+
+functions:
+  createToken:
+    handler: src/handlers/tokenization.createToken
+    events:
+      - http:
+          path: createToken
+          method: POST
+          cors: true
+
+  getCardData:
+    handler: src/handlers/cardData.getCardData
+    events:
+      - http:
+          path: getCardData/{token}
+          method: GET
+          cors: true
+
+
